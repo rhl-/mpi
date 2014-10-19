@@ -1,24 +1,42 @@
 \documentclass{isocpp_proposal}
+\usepackage{hyperref}
 
 \documentnumber{$\pi$}
 \date{\today}
-\project{C++ MPI Standard Proposal}
+\project{C++ Message Passing Standard Proposal}
 \replyto{Ryan H. Lewis $\langle$ me@ryanlewis.net $\rangle$}
 
 \begin{document}
 \maketitle
 
 \section{Introduction}
+The purpose of this document is to outline new language features to translate 
+C++ data structures from the address space of one process to the address spaces of other processes, possibly on different physical machines. 
+Presently there is no message passing support in C++. 
 
-A very brief high level view of your proposal, understandable by C++ committee members who are not necessarily experts in whatever domain you are addressing.
+\subsection{Need \& Prior Art}
+There is a definite demand for distributed memory programming. Distributed memory programming is of the upmost necessity for 
+large scale simulations and data analysis. The Message Passing Interface is an existing C/Fortran standard with a similar goal \cite{mpistandard}.
+The standard defines an MPI Type system, similar to the type system inherent in C++. It does this to provide runtime type introspection. 
+
+Separately, companies such as Apache and Google have found MapReduce to be useful for parallelism. The map reduce framework is  distributed memory model. 
+\href{http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3446.pdf}{Proposal N3446} is an existing proposal to add MapReduce into C++. In this proposal
+they mention the possibility of a distributed memory map() and reduce().
+
+Existing distributed memory libraries such as map reduce frameworks implement a subset of a broader set of message passing algorithms, while broader standards
+such as MPI do not integrate with the C++ typing system. This shifts added complexity onto the library user to communicate \emph{how} to communicate data structures.
 
 \section{Motivation and Scope}
 
-Why is this important? What kinds of problems does it address? What is the intended user community? What level of programmers (novice, experienced, expert) is it intended to support? What existing practice is it based on? How widespread is its use? How long has it been in use? Is there a reference implementation and test suite available for inspection?
+\subsection{Why is this important? What kinds of problems does it address?}
+The motivation for the addition of message passing to the C++ standard is to enable 
+portable, efficient, general purpose distributed memory algorithm development. 
+
+\subsection{ What is the intended user community?}
+The intended community is anyone interested in using more memory than is available on one machine.
 
 \section{Impact On the Standard}
-
-What other library components does does it depend on, and what depends on it? Is it a pure extension, or does it require changes to standard components? Can it be implemented using C++11 compilers and libraries, or does it require language or library features that are not part of C++11?
+A message passing component in the standard would rely first and foremost on a networking standard for implementation, and additionally a reflections standard.
 
 \section{Design Decisions}
 
@@ -37,7 +55,7 @@ Provide full "Standardese." A standard is a contract between implementers and us
 
 \section{References}
 \begin{thebibliography}{1} %1 is the number of entries below.. one can also replace with bibtex..
-\bibitem{key} John Doe {\em Title and stuff}  2013.
+\bibitem{mpistandard} Message Passing Interface Forum, {\em \href{www.mpi-forum.org/docs/mpi-3.0/mpi30-report.pdf}{The Message Passing Standard Version 3.0}},  2012.
 \end{thebibliography}
 
 \end{document}  
